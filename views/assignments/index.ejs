@@ -1,0 +1,41 @@
+<%- include("../partials/header") %>
+
+<h1 class="mb-4">My Assignments</h1>
+
+<a href="/assignments/new" class="btn btn-main mb-3">Add New Assignment</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Course</th>
+      <th>Due Date</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (!assignments || assignments.length === 0) { %>
+      <tr>
+        <td colspan="6">I don't have any assignments yet.</td>
+      </tr>
+    <% } else { %>
+      <% assignments.forEach(assignment => { %>
+        <tr>
+          <td><%= assignment.title %></td>
+          <td><%= assignment.course %></td>
+          <td><%= assignment.dueDate.toDateString() %></td>
+          <td><%= assignment.status %></td>
+          <td><%= assignment.priority %></td>
+          <td>
+            <a href="/assignments/<%= assignment._id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="/assignments/<%= assignment._id %>/delete" class="btn btn-sm btn-outline-danger">Delete</a>
+          </td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include("../partials/footer") %>

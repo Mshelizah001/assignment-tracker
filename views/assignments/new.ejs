@@ -1,0 +1,50 @@
+<%- include("../partials/header") %>
+
+<h1 class="mb-4">Add New Assignment</h1>
+
+<form action="/assignments" method="POST">
+
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input type="text" name="title" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Course</label>
+    <input type="text" name="course" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Due Date</label>
+    <input type="date" name="dueDate" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      <option value="Not Started">Not Started</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Priority</label>
+    <select name="priority" class="form-select">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Notes (optional)</label>
+    <textarea name="notes" class="form-control" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-main">Save Assignment</button>
+  <a href="/assignments" class="btn btn-secondary">Cancel</a>
+
+</form>
+
+<%- include("../partials/footer") %>

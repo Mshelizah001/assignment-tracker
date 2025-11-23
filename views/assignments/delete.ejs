@@ -1,0 +1,18 @@
+<%- include("../partials/header") %>
+
+<h1 class="mb-4">Delete Assignment</h1>
+
+<p>Are you sure you want to delete this assignment?</p>
+
+<ul>
+  <li><strong>Title:</strong> <%= assignment.title %></li>
+  <li><strong>Course:</strong> <%= assignment.course %></li>
+  <li><strong>Due Date:</strong> <%= assignment.dueDate.toDateString() %></li>
+</ul>
+
+<form action="/assignments/<%= assignment._id %>?_method=DELETE" method="POST" class="mt-3">
+  <button class="btn btn-danger">Yes, Delete</button>
+  <a href="/assignments" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+
+<%- include("../partials/footer") %>

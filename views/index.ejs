@@ -1,0 +1,38 @@
+<%- include("partials/header") %>
+
+<div class="row align-items-center">
+  <!-- Left side: main text -->
+  <div class="col-md-6 mb-4">
+    <span class="badge bg-warning text-dark mb-2">Assignment Tracker</span>
+    <h1 class="display-5 fw-bold mb-3">Stay on top of your school work.</h1>
+    <p class="lead mb-4">
+      I use this app to keep all my assignments in one place, so I can see what is due,
+      what I finished, and what I still need to start.
+    </p>
+
+    <div class="d-flex gap-2">
+      <a href="/assignments" class="btn btn-main btn-lg">View My Assignments</a>
+      <a href="/assignments/new" class="btn btn-outline-secondary btn-lg">Add New Assignment</a>
+    </div>
+  </div>
+
+  <!-- Right side: simple info card -->
+  <div class="col-md-6 mb-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Why I built this</h5>
+        <p class="card-text">
+          I wanted a simple web app where I can:
+        </p>
+        <ul class="mb-3">
+          <li>Create new assignments with due dates</li>
+          <li>See all my tasks in one list</li>
+          <li>Update status as I work on them</li>
+          <li>Delete old tasks when I am done</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer") %>
