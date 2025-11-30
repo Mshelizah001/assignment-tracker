@@ -2,7 +2,17 @@
 
 <h1 class="mb-4">My Assignments</h1>
 
-<a href="/assignments/new" class="btn btn-main mb-3">Add New Assignment</a>
+<% if (user) { %>
+  <p>Welcome, <strong><%= user.name %></strong>. You can create, edit, and delete assignments.</p>
+
+  <div class="d-flex gap-2 mb-3">
+    <a href="/assignments/new" class="btn btn-main">Add New Assignment</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  </div>
+
+<% } else { %>
+  <p>You are not logged in. You can only <strong>view</strong> assignments. Login to add, edit, or delete.</p>
+<% } %>
 
 <table class="table table-striped">
   <thead>
@@ -29,8 +39,12 @@
           <td><%= assignment.status %></td>
           <td><%= assignment.priority %></td>
           <td>
-            <a href="/assignments/<%= assignment._id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
-            <a href="/assignments/<%= assignment._id %>/delete" class="btn btn-sm btn-outline-danger">Delete</a>
+            <% if (user) { %>
+              <a href="/assignments/<%= assignment._id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+              <a href="/assignments/<%= assignment._id %>/delete" class="btn btn-sm btn-outline-danger">Delete</a>
+            <% } else { %>
+              <small>Login to edit/delete</small>
+            <% } %>
           </td>
         </tr>
       <% }) %>

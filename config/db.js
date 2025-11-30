@@ -1,16 +1,13 @@
-// db.js
-// this file connects my app to MongoDB
-
+// config/db.js
 const mongoose = require("mongoose");
 
-async function connectDB() {
+const connectDB = async () => {
   try {
-    // I read the connection string from my .env file
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("Connected to MongoDB");
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("MongoDB connected");
   } catch (err) {
-    console.log("MongoDB connection error:", err.message);
+    console.error("MongoDB connection error:", err.message);
   }
-}
+};
 
 module.exports = connectDB;

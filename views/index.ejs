@@ -1,8 +1,10 @@
 <%- include("partials/header") %>
 
 <div class="row align-items-center">
+
   <!-- Left side: main text -->
   <div class="col-md-6 mb-4">
+
     <span class="badge bg-warning text-dark mb-2">Assignment Tracker</span>
     <h1 class="display-5 fw-bold mb-3">Stay on top of your school work.</h1>
     <p class="lead mb-4">
@@ -10,10 +12,36 @@
       what I finished, and what I still need to start.
     </p>
 
-    <div class="d-flex gap-2">
-      <a href="/assignments" class="btn btn-main btn-lg">View My Assignments</a>
-      <a href="/assignments/new" class="btn btn-outline-secondary btn-lg">Add New Assignment</a>
-    </div>
+    <!-- AUTHENTICATION LOGIC STARTS HERE -->
+    <% if (user) { %>
+
+      <p class="text-success mb-3">
+        Logged in as <strong><%= user.name %></strong>
+      </p>
+
+      <div class="d-flex gap-2 mb-3">
+        <a href="/assignments" class="btn btn-main btn-lg">View My Assignments</a>
+        <a href="/assignments/new" class="btn btn-outline-secondary btn-lg">Add New Assignment</a>
+      </div>
+
+      <a href="/logout" class="btn btn-danger btn-lg">Logout</a>
+
+    <% } else { %>
+
+      <p class="text-danger mb-3">
+        You are not logged in. You can only <strong>view</strong> assignments.
+      </p>
+
+      <div class="d-flex flex-column gap-2 mb-3">
+        <a href="/auth/google" class="btn btn-outline-primary btn-lg">Login with Google</a>
+        <a href="/auth/github" class="btn btn-outline-dark btn-lg">Login with GitHub</a>
+      </div>
+
+      <a href="/assignments" class="btn btn-main btn-lg">View Assignments (Read-Only)</a>
+
+    <% } %>
+    <!-- AUTH LOGIC ENDS HERE -->
+
   </div>
 
   <!-- Right side: simple info card -->
@@ -33,6 +61,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 <%- include("partials/footer") %>

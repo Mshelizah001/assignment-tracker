@@ -5,7 +5,18 @@ const express = require("express");
 const router = express.Router();
 const Assignment = require("../models/Assignment");
 
-// show all assignments
+// middleware to protect routes (only logged-in users)
+function ensureAuth(req, res, next) {
+  if (req.isAuthenticated && req.isAuthenticated()) {
+    return next();
+  }
+  // not logged in - send back to home (or show message page if you prefer)
+  return res.redirect("/");
+}
+
+// ================= PUBLIC ROUTES (VIEW ONLY) ==================
+
+// show all assignments (READ - public)
 router.get("/", async (req, res) => {
   try {
     const assignments = await Assignment.find().sort({ dueDate: 1 });
@@ -16,13 +27,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-// show form to create a new assignment
-router.get("/new", (req, res) => {
+// ================= PROTECTED ROUTES (CREATE / UPDATE / DELETE) ==================
+
+// show form to create a new assignment (CREATE - protected)
+router.get("/new", ensureAuth, (req, res) => {
   res.render("assignments/new");
 });
 
-// show form to edit an assignment
-router.get("/:id/edit", async (req, res) => {
+// show form to edit an assignment (UPDATE - protected)
+router.get("/:id/edit", ensureAuth, async (req, res) => {
   try {
     const assignment = await Assignment.findById(req.params.id);
     res.render("assignments/edit", { assignment });
@@ -32,8 +45,8 @@ router.get("/:id/edit", async (req, res) => {
   }
 });
 
-// show delete confirmation page
-router.get("/:id/delete", async (req, res) => {
+// show delete confirmation page (DELETE - protected)
+router.get("/:id/delete", ensureAuth, async (req, res) => {
   try {
     const assignment = await Assignment.findById(req.params.id);
     res.render("assignments/delete", { assignment });
@@ -43,8 +56,8 @@ router.get("/:id/delete", async (req, res) => {
   }
 });
 
-// create a new assignment
-router.post("/", async (req, res) => {
+// create a new assignment (CREATE - protected)
+router.post("/", ensureAuth, async (req, res) => {
   try {
     await Assignment.create(req.body);
     res.redirect("/assignments");
@@ -54,11 +67,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-// update an existing assignment
-router.put("/:id", async (req, res) => {
+// update an existing assignment (UPDATE - protected)
+router.put("/:id", ensureAuth, async (req, res) => {
   try {
     await Assignment.findByIdAndUpdate(req.params.id, req.body, {
-    runValidators: true,
+      runValidators: true,
     });
     res.redirect("/assignments");
   } catch (err) {
@@ -67,8 +80,8 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// delete an assignment
-router.delete("/:id", async (req, res) => {
+// delete an assignment (DELETE - protected)
+router.delete("/:id", ensureAuth, async (req, res) => {
   try {
     await Assignment.findByIdAndDelete(req.params.id);
     res.redirect("/assignments");
